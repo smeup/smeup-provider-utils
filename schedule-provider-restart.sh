@@ -32,20 +32,36 @@ source $DIR/functions
 
 cd $DIR
 
+logger "Restarting provider"
 restart_container smeup-provider-fe
 
 EOF
-
 su --login $RUN_AS -c "chmod u+x \$HOME/bin/$RESTART_PROVIDER_FILE"
 
-cat > "/etc/cron.daily/$RESTART_PROVIDER_FILE" << EOF
+#Create set-restart-provider-time file
+SET_RESTART_PROVIDER_TIME_FILE=set-restart-provider-time
+su --login $RUN_AS -c "cat > \$HOME/bin/$SET_RESTART_PROVIDER_TIME_FILE" << EOF
 #!/bin/bash
 
-logger "Restarting provider" \$(date)
+usage() {
 
-/home/$RUN_AS/bin/$RESTART_PROVIDER_FILE
+        echo "Usage: \$0 HH:MM"
+}
+
+TIME=\$(date +"%H:%M" -d "\$1" 2> /dev/null)
+DATE_PARSE_EXIT_STATUS=$?
+
+if [ \$DATE_PARSE_EXIT_STATUS -ne 0  ]  
+then
+  usage 
+  exit
+fi
+
+read HH MM <<< \${TIME//[-:]/ }
+
+(echo "\$MM \$HH * * * \$HOME/bin/$RESTART_PROVIDER_FILE"; crontab -l 2> /dev/null) | uniq -f 5 - | crontab -
 
 EOF
+su --login $RUN_AS -c "chmod u+x \$HOME/bin/$SET_RESTART_PROVIDER_TIME_FILE"
 
-chmod u+x /etc/cron.daily/$RESTART_PROVIDER_FILE
-
+su --login $RUN_AS -c "/home/$RUN_AS/bin/$SET_RESTART_PROVIDER_TIME_FILE 4:17"
