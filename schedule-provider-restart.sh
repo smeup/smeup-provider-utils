@@ -47,6 +47,12 @@ usage() {
         echo "Usage: \$0 HH:MM"
 }
 
+if [ \$# -eq 0 ] 
+then 
+  usage
+  exit
+fi
+
 TIME=\$(date +"%H:%M" -d "\$1" 2> /dev/null)
 DATE_PARSE_EXIT_STATUS=$?
 
