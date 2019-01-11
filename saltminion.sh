@@ -2,6 +2,15 @@
 
 if [ $(id -u) -ne 0 ]; then echo "Please run as root" ; exit 1 ; fi
 
+function usage {
+	echo "Usage: `basename "$0"` [MINION-ID] [USER] [PASSWORD]" >&2
+}
+
+rm /etc/salt/pki/minion/minion.pem
+rm /etc/salt/pki/minion/minion.pub
+cat /dev/null > /etc/salt/minion_id
+/etc/salt/minion.d/id.conf
+
 curl -L https://bootstrap.saltstack.com -o install_salt.sh
 sh install_salt.sh -P
 
