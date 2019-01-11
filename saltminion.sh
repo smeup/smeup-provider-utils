@@ -52,3 +52,4 @@ printf "master: ${MASTER}\nid: ${MINION}" > /etc/salt/minion.d/id.conf
 systemctl enable salt-minion
 systemctl start salt-minion
 
+salt-call test.ping
