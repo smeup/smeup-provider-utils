@@ -27,3 +27,15 @@ crontab -r
 ```
 
 In this case smeup-provider-fe will not be restarted.
+
+## Register minion
+
+```bash
+wget -qO- https://raw.githubusercontent.com/smeup/smeup-provider-utils/master/saltminion.sh | sudo bash -s MINION_ID USERNMANE PASSWORD
+```
+
+## Test minion
+
+```bash
+curl -sS https://rm.smeup.com/run -H 'Accept: application/x-yaml' -H 'Content-type: application/json' -d '[{"client":"local","tgt":"MINION_ID","fun":"test.ping","username":"USERNMANE","password":"PASSWORD","eauth": "pam"}]'
+```
