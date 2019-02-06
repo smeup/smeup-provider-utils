@@ -39,3 +39,5 @@ wget -qO- https://raw.githubusercontent.com/smeup/smeup-provider-utils/master/sa
 ```bash
 curl -sS https://rm.smeup.com/run -H 'Accept: application/x-yaml' -H 'Content-type: application/json' -d '[{"client":"local","tgt":"MINION_ID","fun":"test.ping","username":"USERNMANE","password":"PASSWORD","eauth": "pam"}]'
 ```
+
+You can also test all minions using "*" as MINION_ID.
