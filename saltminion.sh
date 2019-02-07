@@ -6,6 +6,9 @@ function usage {
 	echo "Usage: `basename "$0"` [MINION-ID] [USER] [PASSWORD]" >&2
 }
 
+echo "Clean previous potential key"
+salt-call saltutil.revoke_auth &> /dev/null
+
 rm /etc/salt/pki/minion/minion.pem
 rm /etc/salt/pki/minion/minion.pub
 cat /dev/null > /etc/salt/minion_id
