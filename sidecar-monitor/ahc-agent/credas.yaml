@@ -1,0 +1,8 @@
+version: "v1-beta"
+address: http://localhost:8080/smeup-provider-fe
+server: /providerconfig/configuration.properties
+user: /providerconfig/configuration.properties
+password: /providerconfig/configuration.properties
+env: /providerconfig/configuration.properties
+log: false
+port: 8080

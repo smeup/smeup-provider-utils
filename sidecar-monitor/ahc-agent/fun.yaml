@@ -1,0 +1,10 @@
+version: "v1-beta"
+fun:
+  - F(EXB;B£SER_01;CON.PRO)
+  - F(EXB;JA_00_46;INF.SPR)
+  - F(EXB;V5_061D03;CTR.CFG)
+  - http://localhost:8080/smeup-provider-fe/ProbesService/connectivity
+  - http://localhost:8080/smeup-provider-fe/ProbesService/folders
+  - http://localhost:8080/smeup-provider-fe/ProbesService/appserver
+  - http://localhost:8080/gtw-hub/api/services/check
+  - http://localhost:8080/gtw-hub/api/services/dashboard
