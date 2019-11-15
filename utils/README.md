@@ -1,4 +1,4 @@
-# Minions customStats.py
+# Minions smeupStats.py
 
 This script was created to request the health status of the minions connected to a master.
 This request can be made via the master (see command at bottom file) or via Rest-Cherrypy by anyone who can make an HTTP request (see the [Rest-Cherrypy] documentation).
@@ -26,7 +26,7 @@ $ /etc/salt/master
 ```
 N.B. If is possible to leave a standard file_root and not change the default configuration.
 
-Now you must put the customStats.py in the master-machine under this path (if the file_roots is leave as default, otherwise it will must put under the custom path choosed by user).
+Now you must put the smeupStats.py in the master-machine under this path (if the file_roots is leave as default, otherwise it will must put under the custom path choosed by user).
 
 ```sh
 $ cd /srv/salt/_minions/
@@ -41,20 +41,20 @@ $ salt '*' saltutil.sync_modules
 
 If all the previous operation was succesfull do, try to run from the master terminal this command:
 ```sh
-$ salt '*' customStats.get_stats
+$ salt '*' smeupStats.get_stats
 ```
 (or change the '*' to a valid target minions, see a [Targeting] documentation)
 
 The other commands that we can ask are:
 ```sh
-$ salt '*' customStats.get_uptime
-$ salt '*' customStats.get_user_logged
-$ salt '*' customStats.get_avg
-$ salt '*' customStats.get_avg
-$ salt '*' customStats.get_memory
-$ salt '*' customStats.get_swap
-$ salt '*' customStats.get_network_ip_addrs
-$ salt '*' customStats.get_connection_check
+$ salt '*' smeupStats.get_uptime
+$ salt '*' smeupStats.get_user_logged
+$ salt '*' smeupStats.get_avg
+$ salt '*' smeupStats.get_avg
+$ salt '*' smeupStats.get_memory
+$ salt '*' smeupStats.get_swap
+$ salt '*' smeupStats.get_network_ip_addrs
+$ salt '*' smeupStats.get_connection_check
 ```
 
 [Rest-Cherrypy]: <https://docs.saltstack.com/en/latest/ref/netapi/all/salt.netapi.rest_cherrypy.html>
