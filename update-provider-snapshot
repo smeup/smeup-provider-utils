@@ -20,7 +20,7 @@ DEPLOYMENTS_DIR=$HOME/container/smeup-provider-fe/deployments
 if [ -n "$1" ]; then
 	VERSION=$1
 else
-	VERSION=$(xmllint --xpath "string(//version)" <(wget -O - "${base}/${groupIdUrl}/${artifactId}/maven-metadata.xml"))
+	VERSION=$(xmllint --xpath "string(//version[last()])" <(wget -O - "${base}/${groupIdUrl}/${artifactId}/maven-metadata.xml"))
 fi
 
 echo $VERSION
