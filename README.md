@@ -44,8 +44,10 @@ You can also test all minions using "*" as MINION_ID.
 
 ## Deploy provider on Nexus
 
-Once you got provider war file you need to deploy it over nexus maven repository. You have to chooes if you want deploy snapshot or relase version.
-Be advise, if you deploy a release version you can't overwrite an existing version, so you have always to modify the VRM numbers. Otherwise, if you deploy a snapshot version, you can overwrite an existing version.
+Once you got provider war file you need to deploy it over nexus maven repository. You have to chooes if you want deploy snapshot or release version.
+
+Be advise, if you deploy a release version you can't overwrite an existing version, so you have always to modify the VRM numbers. 
+Otherwise, if you deploy a snapshot version, you can overwrite an existing version.
 
 Release
 
