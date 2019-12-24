@@ -53,5 +53,5 @@ mvn deploy:deploy-file -DgroupId=com.smeup -DartifactId=smeup-provider -Dversion
 
 Snapshot
 
-mvn deploy:deploy-file -DgroupId=com.smeup -DartifactId=smeup-provider -Dversion=**V.R.M-SNAPSHOT** -Dpackaging=war -Dfile=**/home/olimaest/Scaricati/smeup-provider.war** -DrepositoryId=snapshots -DgeneratePom=true -Durl=http://mauer.smeup.com/nexus/content/repositories/snapshots
+mvn deploy:deploy-file -DgroupId=com.smeup -DartifactId=smeup-provider -Dversion=**V.R.M-SNAPSHOT** -Dpackaging=war -Dfile=**/path/to/file/smeup-provider.war** -DrepositoryId=snapshots -DgeneratePom=true -Durl=http://mauer.smeup.com/nexus/content/repositories/snapshots
 
