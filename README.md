@@ -41,3 +41,19 @@ curl -sS https://rm.smeup.com/run -H 'Accept: application/x-yaml' -H 'Content-ty
 ```
 
 You can also test all minions using "*" as MINION_ID.
+
+## Deploy provider on Nexus
+
+Once you got provider war file you need to deploy it over nexus maven repository. You have to chooes if you want deploy snapshot or release version.
+
+Be advise, if you deploy a release version you can't overwrite an existing version, so you have always to modify the VRM numbers. 
+Otherwise, if you deploy a snapshot version, you can overwrite an existing version.
+
+Release
+
+mvn deploy:deploy-file -DgroupId=com.smeup -DartifactId=smeup-provider -Dversion=**V.R.M** -Dpackaging=war -Dfile=**/path/to/file/smeup-provider.war** -DrepositoryId=releases -DgeneratePom=true -Durl=http://mauer.smeup.com/nexus/content/repositories/releases
+
+Snapshot
+
+mvn deploy:deploy-file -DgroupId=com.smeup -DartifactId=smeup-provider -Dversion=**V.R.M-SNAPSHOT** -Dpackaging=war -Dfile=**/path/to/file/smeup-provider.war** -DrepositoryId=snapshots -DgeneratePom=true -Durl=http://mauer.smeup.com/nexus/content/repositories/snapshots
+
