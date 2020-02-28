@@ -60,6 +60,8 @@ if $(validate_url $URL); then
 	rm -rf $DEPLOYMENTS_DIR/*
 	cp $HOME/$filename $DEPLOYMENTS_DIR/$WAR_NAME.war
 	restart_container smeup-provider-fe
+        versionprop="version=$VERSION"
+        echo $versionprop > $HOME/container/smeup-provider-fe/config/smeup-provider-fe/version.properties	
 else
 	echo "Resource $URL not found. Incorrect version?"
 fi
