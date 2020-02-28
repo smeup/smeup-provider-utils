@@ -5,7 +5,7 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
 	exit 0
 fi
 
-repo="snapshots"
+repo="releases"
 base="https://mauer.smeup.com/nexus/content/repositories/${repo}"
 
 
@@ -17,23 +17,21 @@ groupIdUrl="${groupId//.//}"
 
 DEPLOYMENTS_DIR=$HOME/container/smeup-provider-fe/deployments
 
+
 if [ -n "$1" ]; then
 	VERSION=$1
 else
-	VERSION=$(xmllint --xpath "string(//version[last()])" <(wget -O - "${base}/${groupIdUrl}/${artifactId}/maven-metadata.xml"))
+	VERSION=$(xmllint --xpath "string(//release)" <(wget -O - "${base}/${groupIdUrl}/${artifactId}/maven-metadata.xml"))
 fi
 
 echo $VERSION
-
-SNAPSHOTVERSION=$(xmllint --xpath "string(//value)" <(wget -O - "${base}/${groupIdUrl}/${artifactId}/$VERSION/maven-metadata.xml"))
-
-echo $SNAPSHOTVERSION
 
 if [ -n "$2" ]; then
 	WAR_NAME=$2
 else
 	WAR_NAME="smeup-provider-fe"
 fi
+
 
 
 function validate_url() {
@@ -47,13 +45,9 @@ function restart_container() {
 	fi
 }
 
-#recupero dal repository la versione snapshot corrente
-
-filename="${artifactId}-$SNAPSHOTVERSION.${type}"
+filename="${artifactId}-${VERSION}${classifier}.${type}"
 
 URL="$base/$groupIdUrl/${artifactId}/$VERSION/$filename"
-
-echo $URL
 
 if $(validate_url $URL); then
 	wget $URL -O $HOME/$filename
@@ -61,7 +55,8 @@ if $(validate_url $URL); then
 	cp $HOME/$filename $DEPLOYMENTS_DIR/$WAR_NAME.war
 	restart_container smeup-provider-fe
         versionprop="version=$VERSION"
-        echo $versionprop > $HOME/container/smeup-provider-fe/config/smeup-provider-fe/version.properties	
+        echo $versionprop > $HOME/container/smeup-provider-fe/config/smeup-provider-fe/version.properties
 else
 	echo "Resource $URL not found. Incorrect version?"
 fi
+
