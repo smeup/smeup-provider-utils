@@ -1,0 +1,62 @@
+#!/bin/bash
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+	echo "Usage: `basename "$0"` [VERSION] [CONTEXTROOT]" >&2
+	exit 0
+fi
+
+repo="releases"
+base="https://mauer.smeup.com/nexus/content/repositories/${repo}"
+
+
+groupId=com.smeup
+artifactId=smeup-provider
+type="war"
+
+groupIdUrl="${groupId//.//}"
+
+DEPLOYMENTS_DIR=$HOME/container/smeup-provider-fe/deployments
+
+
+if [ -n "$1" ]; then
+	VERSION=$1
+else
+	VERSION=$(xmllint --xpath "string(//release)" <(wget -O - "${base}/${groupIdUrl}/${artifactId}/maven-metadata.xml"))
+fi
+
+echo $VERSION
+
+if [ -n "$2" ]; then
+	WAR_NAME=$2
+else
+	WAR_NAME="smeup-provider-fe"
+fi
+
+
+
+function validate_url() {
+	if [[ $(wget -S --spider $1 2>&1 | grep 'HTTP/1.1 200 OK') ]]; then return 0; else return 1; fi
+}
+
+function restart_container() {
+	CONTAINER_ID=$(docker container ps -q --filter "name=$1")
+	if [ -n "$CONTAINER_ID" ]; then
+		docker restart $CONTAINER_ID
+	fi
+}
+
+filename="${artifactId}-${VERSION}${classifier}.${type}"
+
+URL="$base/$groupIdUrl/${artifactId}/$VERSION/$filename"
+
+if $(validate_url $URL); then
+	wget $URL -O $HOME/$filename
+	rm -rf $DEPLOYMENTS_DIR/*
+	cp $HOME/$filename $DEPLOYMENTS_DIR/$WAR_NAME.war
+	restart_container smeup-provider-fe
+        versionprop="version=$VERSION"
+        echo $versionprop > $HOME/container/smeup-provider-fe/config/smeup-provider-fe/version.properties
+else
+	echo "Resource $URL not found. Incorrect version?"
+fi
+
