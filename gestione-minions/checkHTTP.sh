@@ -32,12 +32,15 @@ cat $LOGFILE.fol | grep Status
 sudo salt $1 http.query http://127.0.0.1:8080/smeup-provider-fe/ProbesService/queues >> $LOGFILE.que
 echo Check Queues : 
 cat $LOGFILE.que | grep Status
+sudo salt $1 http.query http://127.0.0.1:8080/smeup-provider-fe/ProbesService/version >> $LOGFILE.ver
+echo Check Version : 
+cat $LOGFILE.ver | grep Status
 
-cat $LOGFILE.con $LOGFILE.app $LOGFILE.fol $LOGFILE.que >> $LOGFILE
+cat $LOGFILE.con $LOGFILE.app $LOGFILE.fol $LOGFILE.que $LOGFILE.ver >> $LOGFILE
 
 rm $LOGFILE.con
 rm $LOGFILE.app
 rm $LOGFILE.fol
 rm $LOGFILE.que
-
+rm $LOGFILE.ver
 
