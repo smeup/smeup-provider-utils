@@ -6,7 +6,7 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
 fi
 
 repo="releases"
-base="https://mauer.smeup.com/nexus/content/repositories/${repo}"
+base="https://repo.smeup.com/nexus/content/repositories/${repo}"
 
 
 groupId=com.smeup
