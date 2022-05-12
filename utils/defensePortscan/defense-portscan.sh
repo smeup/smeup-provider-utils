@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-set -x
-set -e
+#set -x
+#set -e
 # Script da lanciare come demone tramite comando -d
 
 
@@ -172,6 +172,10 @@ function uninstall() {
 		done
 }
 
+function docker-restart() {
+	 [ ! which docker > /dev/null ] && ( echo "Trovate reti docker, riavvio del servizio in corso!" && systemctl restart docker )
+}
+
 function daemon-mode() {
 	# Clear all existing iptables rules
 	iptables -F
@@ -187,6 +191,9 @@ function daemon-mode() {
 	[ $(iptables -S | grep -cF -- "-A $IPTABLE_RULE_2") -lt 1 ] && iptables -A $IPTABLE_RULE_2
 	[ $(iptables -S | grep -cF -- "-A $IPTABLE_RULE_3") -lt 1 ] && iptables -A $IPTABLE_RULE_3
 	[ $(iptables -S | grep -cF -- "-A $IPTABLE_RULE_4") -lt 1 ] && iptables -A $IPTABLE_RULE_4
+	
+	# If docker is present, restart service
+	docker-restart
 	
 	# Enable autoupdate if set
 	[ "$AUTOUPDATE" == "1" ] && update
