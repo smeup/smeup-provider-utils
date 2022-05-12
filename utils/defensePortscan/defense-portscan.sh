@@ -97,7 +97,7 @@ function install() {
 	
 	# Finish
 	echo "Install completed"
-	echo -e "If you want to Edit Whitelist or Verify the install, just run the below command:\nsudo $SCRIPT_PATHFILE\n"
+	#echo -e "If you want to Edit Whitelist or Verify the install, just run the below command:\nsudo $SCRIPT_PATHFILE\n"
 	
 }
 
@@ -173,7 +173,7 @@ function uninstall() {
 }
 
 function docker-restart() {
-	 [ ! which docker > /dev/null ] && ( echo "Trovate reti docker, riavvio del servizio in corso!" && systemctl restart docker )
+	 [ ! $(which docker > /dev/null) ] && ( echo "Trovate reti docker, riavvio del servizio in corso!" && systemctl restart docker )
 }
 
 function daemon-mode() {
