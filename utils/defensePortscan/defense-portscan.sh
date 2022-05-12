@@ -13,9 +13,7 @@ VERSION=0.0.1
 AUTOUPDATE=1
 SCRIPT_PATHFILE="/usr/local/sbin/$NAME"
 CRON_PATFILE="/etc/cron.d/defense-portscan"
-GITHUB_PROJECT=""
-GIT_VERSION_FILE="$GITHUB_PROJECT/version.info"
-GIT_SCRIPT_FILE="$GITHUB_PROJECT/$NAME"
+GITHUB_PROJECT="https://github.com/smeup/smeup-provider-utils/blob/f8e9e7acecd7e1be704f729f2f49a05067bfb4a9/utils/defensePortscan/$NAME"
 
 # Define 'port_scanners' and 'scanned_ports' maps properties
 IPSET_RULE_1='port_scanners hash:ip family inet hashsize 32768 maxelem 65536 timeout 600'
@@ -67,7 +65,7 @@ function update() {
 	
 	# If version is different, and exist cron file and are present and executable script file
 	if [[ "$VERSION" != "$GITHUB_VERSION" ]] && [ -f "$CRON_PATFILE" ] && [ -x "$SCRIPT_PATHFILE" ]; then
-		curl -s -o "$SCRIPT_PATHFILE" "$GIT_VERSION_FILE"
+		curl -s -o "$SCRIPT_PATHFILE" "$GITHUB_PROJECT"
 		setCrontabExecution
 	else
 		echo "$SCRIPT_PATHFILE up to date"
@@ -83,7 +81,7 @@ function install() {
 	# Copy script to $SCRIPT_PATHFILE
 	INSTALLER_LOCATION=$(realpath $0)
 	if [ "$INSTALLER_LOCATION" != "$SCRIPT_PATHFILE" ]; then
-		curl -s -o "$SCRIPT_PATHFILE" "$GIT_SCRIPT_FILE" && [ -s "$SCRIPT_PATHFILE" ] && chmod +x "$SCRIPT_PATHFILE" && echo -e "$NAME has been copied in $SCRIPT_PATHFILE" || echo "Error - Problem to download github file" && exit 8
+		curl -s -o "$SCRIPT_PATHFILE" "$GITHUB_PROJECT" && [ -s "$SCRIPT_PATHFILE" ] && chmod +x "$SCRIPT_PATHFILE" && echo -e "$NAME has been copied in $SCRIPT_PATHFILE" || echo "Error - Problem to download github file" && exit 8
 	fi
 	
 	# First cron like run to activate the iptable rules
