@@ -13,7 +13,7 @@ VERSION=0.0.1
 AUTOUPDATE=1
 SCRIPT_PATHFILE="/usr/local/sbin/$NAME"
 CRON_PATFILE="/etc/cron.d/defense-portscan"
-GITHUB_PROJECT="https://github.com/smeup/smeup-provider-utils/blob/f8e9e7acecd7e1be704f729f2f49a05067bfb4a9/utils/defensePortscan/$NAME"
+GITHUB_PROJECT="https://raw.githubusercontent.com/smeup/smeup-provider-utils/develop/utils/defensePortscan/defense-portscan.sh"
 
 # Define 'port_scanners' and 'scanned_ports' maps properties
 IPSET_RULE_1='port_scanners hash:ip family inet hashsize 32768 maxelem 65536 timeout 600'
