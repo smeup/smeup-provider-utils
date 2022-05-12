@@ -9,7 +9,7 @@ set -e
 ###############################
 
 NAME="defense-portscan.sh"
-VERSION=0.0.1
+VERSION="0.0.1"
 AUTOUPDATE=1
 SCRIPT_PATHFILE="/usr/local/sbin/$NAME"
 CRON_PATFILE="/etc/cron.d/defense-portscan"
@@ -178,7 +178,7 @@ function daemon-mode() {
 	iptables -X
 	
 	# Add rules to accept all traffic for whitelist IPs
-	addWhitelistIPs
+	#addWhitelistIPs
 	
 	# Add defensive rules
 	[ $(ipset list | grep -c port_scanners) -lt 1 ] && ipset create $IPSET_RULE_1
