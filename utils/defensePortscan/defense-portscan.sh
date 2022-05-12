@@ -81,7 +81,15 @@ function install() {
 	# Copy script to $SCRIPT_PATHFILE
 	INSTALLER_LOCATION=$(realpath $0)
 	if [ "$INSTALLER_LOCATION" != "$SCRIPT_PATHFILE" ]; then
-		curl -s -o "$SCRIPT_PATHFILE" "$GITHUB_PROJECT" && [ -s "$SCRIPT_PATHFILE" ] && chmod +x "$SCRIPT_PATHFILE" && echo -e "$NAME has been copied in $SCRIPT_PATHFILE" || echo "Error - Problem to download github file" && exit 8
+		curl -s -o "$SCRIPT_PATHFILE" "$GITHUB_PROJECT"  
+		
+		if [ -s "$SCRIPT_PATHFILE" ]; then 
+			echo "$NAME has been copied in $SCRIPT_PATHFILE"
+			chmod +x "$SCRIPT_PATHFILE"
+		else
+			echo "Error - Problem to download github file"
+			exit 8
+		fi
 	fi
 	
 	# First cron like run to activate the iptable rules
