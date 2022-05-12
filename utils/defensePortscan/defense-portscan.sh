@@ -49,7 +49,7 @@ function checkMandatoryApps() {
 
 function setCrontabExecution() {
 	if [ ! -f "$CRON_PATFILE" ] || [ $(grep -c "reboot root sleep" "$CRON_PATFILE") -lt 1 ]; then
-		echo -e "# $SCRIPT_PATHFILE installed at $(date)\n@reboot root sleep 30 && $CRON_PATFILE -d" > "$CRON_PATFILE"
+		echo -e "# $SCRIPT_PATHFILE installed at $(date)\n@reboot root sleep 30 && $CRON_PATFILE -d && systemctl restart docker" > "$CRON_PATFILE"
 		echo "Crontab added"
 	else
 		echo "Crontab already set"
