@@ -15,7 +15,7 @@ cat /dev/null > /etc/salt/minion_id
 /etc/salt/minion.d/id.conf
 
 curl -L https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh -o install_salt.sh
-sh install_salt.sh -P
+sh install_salt.sh -P stable 3006.0
 
 systemctl disable salt-minion
 systemctl stop salt-minion
